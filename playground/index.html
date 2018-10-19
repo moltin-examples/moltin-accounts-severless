@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+<head>
+<link rel="stylesheet" type="text/css" href="style.css">
+</script>
+
+<script src="https://unpkg.com/@moltin/sdk"></script>
+<!--
+quick install https://developers.moltin.com/your-first-api-request
+//-->
+
+<script>
+  const Moltin = moltin.gateway({
+    //Add your client id
+    client_id: 'XXXXX'
+  })
+</script>
+</head>
+
+
+<h2>Get user accounts created today</h2>
+<form action=playgroundbutton() method="post" enctype="multipart/form-data">
+  <label for="username">name:</label>
+  <input type="text" id="username" name="username">
+  <label for="email">email:</label>
+  <input type="text" id="email" name="email">
+  <br />
+  <label for="password">password:</label>
+  <input type="text" id="password" name="password">
+  <br />
+  <br />
+
+</form>
+
+<button onclick="playgroundbutton()">Create user</button>
+<br />
+<br />
+<iframe name="playgroundFrame"></iframe>
+<br />
+<br />
+<button onclick="getCustomers()">Get user accounts created today</button>
+<br />
+<br />
+<iframe name="getplaygroundFrame"></iframe>
+<script>
+
+const examplePlaygroundCartId = Math.random();
+
+function playgroundbutton() {
+    //add User
+    var ts = new Date();
+    const customer = {
+      name: username.value,
+      email: email.value,
+      password: password.value,
+      createdDate:  ts.toLocaleDateString()
+    }
+    console.log(customer)
+    Moltin.Customers.Create(customer).then(customer => {
+      document.playgroundFrame.document.body.innerHTML = JSON.stringify(customer)
+      console.log(JSON.stringify(customer))
+    })
+  }
+
+  function getCustomers() {
+      const GATEWAY_URL = ['https://pwgd5pif08.execute-api.us-east-1.amazonaws.com/dev/accounts'];
+      fetch(GATEWAY_URL, {
+        headers: {
+          "Content-Type": "application/json"
+        },
+          method: 'GET',
+          mode: 'no-cors',
+      })
+      .then((response) => {
+          console.log("response",response);
+          document.getplaygroundFrame.document.body.innerHTML = JSON.stringify(response)
+      })
+    }
+
+</script>
+</body>
+</html>
