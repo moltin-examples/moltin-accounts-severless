@@ -1,11 +1,5 @@
-/*
- * Sample node.js code for AWS Lambda to upload Moltin products
- * from Moltin API to Amazon Elasticsearch.
- */
-
 var AWS = require("aws-sdk");
 
-//Replace with your Moltin and TaxJar keys
 const MoltinGateway = require("moltin.js").gateway;
 
 //Your Moltin Keys
